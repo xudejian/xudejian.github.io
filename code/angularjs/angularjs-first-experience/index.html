@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>angularjs first experience</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="angularjs first experience, 一篇angular经验帖">
+    <meta name="author" content="Dejian Xu">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+<link href='/assets/stylesheets/bootstrap.min-88238289010db19359d2181e634e95cd.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/style-e81fa375b231bedf6cb2dbc6653570cc.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/google_prettify/sons-of-obsidian-afb0925bfa2d994f17dab93e13fbf999.css' type='text/css' rel='stylesheet' media='all'>
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+    <link href='https://plus.google.com/116305544434538996428' rel='publisher'/>
+    <link rel="sitemap" href="/sitemap.xml" />
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">Dejian's Blog</a>
+          <ul class="nav">
+              
+                <li><a href="/archive">Archive</a></li>
+              
+              
+                <li><a href="/tags">Tags</a></li>
+              
+              
+                <li><a href="/categories">Categories</a></li>
+              
+              
+                <li><a href="/pages">Pages</a></li>
+              
+              
+                <li><a href="/about">About Me</a></li>
+              
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
+        <div itemscope itemtype="http://schema.org/BlogPosting">
+<div class="page-header">
+  <meta itemprop="url" content="/code/angularjs/angularjs-first-experience">
+  <meta itemprop="author" content="Dejian Xu">
+  <h1 itemprop="name">angularjs first experience </h1>
+</div>
+
+<div class="row-fluid post-full">
+  <div class="span12">
+    <div class="date">
+      Posted
+      <span content="2013-07-12" itemprop="datePublished">2013-07-12</span>
+      by Dejian Xu
+      <a href="https://plus.google.com/116305544434538996428?rel=author" target="_blank">G+</a>
+    </div>
+    <div class="content" itemprop="articleBody">
+      <h3 id="toc_0">Summary</h3>
+
+<p>这是一篇经验帖。</p>
+
+<p>项目使用angularjs重构功能代码，这个过程中遇到了一些问题，
+也有jQuery使用者的思维习惯需要转变的地方，文中会列出相应的处理方法，
+处理方法未必是最合适的，本文一并记录下来。</p>
+
+<h3 id="toc_1">背景介绍</h3>
+
+<p>项目某功能基于jQuery, jQuery
+plugin，外加纯手工代码过千行，希望通过引入angularjs，能减少代码量和使业务逻辑更加清晰。
+该功能是一个传统CRUD类的事务，所以暂未使用angularjs的route。</p>
+
+<h3 id="toc_2">经验总结</h3>
+
+<ol>
+<li><p>angular jqLite 与 jQuery</p>
+
+<p>虽说angular实现了一个简版jQuery，但是并不像你想的那样。
+没有css选择器，事件绑定只能使用bind，虽不够便利，但足够使用。</p>
+
+<pre><code>angular.element(document.getElementById(&#39;id&#39;)).bind(&#39;change&#39;, function(){
+});
+</code></pre></li>
+<li><p>载入数据</p>
+
+<ul>
+<li>原始方式<br>
+php直接将数据写到input上，或者php端循环生成html</li>
+<li><p>angular方式<br>
+在相应控制器的构造函数中载入数据。</p>
+
+<pre><code>app.controller(&#39;yourCtrl&#39;, [&#39;$scope&#39;, &#39;$http&#39;, function($scope, $http){
+  $http.get(&#39;/path/to/your/data/api&#39;)
+    .success(function(data) {
+      $scope.data = info.data;
+    });
+}]);
+</code></pre></li>
+</ul>
+
+<p>在项目实现中，后台没有对应的api，为了简化工作，把数据以JSON形式写在了页面中。</p>
+
+<pre><code>&lt;script&gt;
+window.mydata = {
+  note: {$note|json_encode},
+  other: [&#39;blablabla&#39;]
+};
+&lt;/script&gt;
+</code></pre>
+
+<p>将数据保存在window名下，在需要使用的地方，通过$window来访问:</p>
+
+<pre><code>app.controller(&#39;yourCtrl&#39;, [&#39;$scope&#39;, &#39;$window&#39;, function($scope, $window){
+    $scope.data = $window.mydata;
+}]);
+</code></pre></li>
+<li><p>数据双向绑定</p>
+
+<ul>
+<li>原始方式<br>
+<code>&lt;input type=&quot;text&quot; name=&quot;title&quot; id=&quot;title&quot; /&gt;</code></li>
+<li>angular方式<br>
+<code>&lt;input type=&quot;text&quot; ng-model=&quot;title&quot; /&gt;</code></li>
+</ul>
+
+<p>双向绑定是一个很好的编码体验。</p>
+
+<p>之前常使用jQuery选择器来定位DOM，然后处理数据。<br>
+在angular里则直接用ngModel进行绑定，model view 层数据同步发生改变，
+极大的减少这类js处理代码。</p></li>
+<li><p>$watch的触发时机</p>
+
+<p>angular的$watch相当便利。它就像DOM上的onchange一样，但又有不同。
+它的触发时机就像ng-change一样，以改变的最小单位为触发单元。</p>
+
+<p>当你一个字符一个字符输入时，它会每个字符输入后触发一次。</p>
+
+<p>当你通过函数直接修改时，它可能只触发一次。</p>
+
+<p>在$watch语句被执行后，它马上触发一次，这时输入的两个参数完全一样，
+是对同一对象的引用，可以使用<code>===</code>判断。</p>
+
+<pre><code>app.controller(&#39;demoCtrl&#39;, [&#39;$scope&#39;, function($scope){
+  $scope.title = &#39;hello&#39;;
+  $scope.$watch(&#39;title&#39;, function(nv,ov){
+    if (nv === ov) {
+      return;
+    }
+    console.log(nv);
+  });
+}]);
+</code></pre></li>
+<li><p>onChange 事件与 ng-change 事件</p>
+
+<p>如果习惯使用jQuery定位到input，然后绑定change事件，或者更原始的直接写属性onchange，
+那么这里将有一个蛮大的转变。</p>
+
+<ul>
+<li>原始方式<br>
+<code>&lt;input onchange=&quot;change(this)&quot; /&gt;</code></li>
+<li>angular方式<br>
+<code>&lt;input ng-model=&quot;title&quot; ng-change=&quot;change()&quot; /&gt;</code></li>
+</ul>
+
+<p>这里有几点需要注意：</p>
+
+<h4 id="toc_3">事件触发时机不同</h4>
+
+<p>HTML的onchange，是value发生<code>变化后</code>触发一次事件。
+angular的ng-change，是当value发生<code>变化时</code>，触发。
+最后一个输入字符是空格时，ng-change不会触发，input丢失焦点后onchange会触发。
+假设value原本为空，手工输入hello，onchange 触发一次，而ng-change触发5次。</p>
+
+<h4 id="toc_4">DOM与angular互访问题</h4>
+
+<p>在<code>ng-change=&quot;change()&quot;</code>这里不能使用<code>this</code>，如果习惯于在这里使用<code>this</code>来访问<code>input</code>的话，
+这里将有一个不适点，不过这里可以拿到<code>event</code>，像这样<code>ng-change=&quot;change($event)&quot;</code>。</p>
+
+<blockquote>
+<p>如果您需要访问<code>input</code>的话，可以考虑使用<code>directive</code>。</p>
+</blockquote>
+
+<p>在DOM中访问angular，如果想在<code>onchange=&quot;change(this)&quot;</code>这里访问angular的话，将不会那么便利，
+ 从DOM可以访问到DOM所属的scope，像这样<code>angular.element(this).scope()</code>，
+ 但是这里不可以直接对绑定的ng-model进行赋值操作：</p>
+
+<p><strong>对input的赋值，将不会保存到ng-model。</strong></p>
+
+<p><strong>对ng-model赋值也不会更新到input上。</strong></p>
+
+<p>DOM或者jQuery相应代码，属于angular运行周期外的代码，当修改scope内数据时，
+ 需要使用<code>scope.$apply()</code>将执行代码包裹起来。</p>
+
+<p>像这样：</p>
+
+<pre><code> $(&#39;your input&#39;).change(function(){
+   scope.$apply(function(){
+     scope.title = &#39;new val&#39;;
+   });
+ });
+</code></pre></li>
+<li><p>$scope.$apply 调用的时机</p>
+
+<p>如果你还没弄明白angular的运行周期，多半会遇到这个问题。
+当你在错误的时机调用了<code>$apply</code>时，浏览器会给你一个
+<code>Error: $apply already in progress</code>。</p>
+
+<p><a href="http://docs.angularjs.org/api/ng.$rootScope.Scope#$apply">官网文档</a>有很明确的解释，</p>
+
+<blockquote>
+<p><code>$apply()</code> 是用来执行来自angular框架外的代码。(比如浏览器DOM事件，setTimeout，XHR或者第三方插件)。
+当外部代码执行进入angular框架内部时，我们需要让相关scope下的异常处理，监听等正常运转。</p>
+</blockquote></li>
+<li><p>如何取消$timeout任务</p>
+
+<pre><code>var promise = $timeout(function(){
+    // bla bla bla 
+});
+$timeout.cancel(promise);
+</code></pre></li>
+<li><p>$http 与 jQuery ajax</p>
+
+<p>两者都是使用Deferred机制来实现的。不过angular的不是一个完全的Deferred实现。
+在接口上，$http跟jQuery ajax有不小的差别，沿用jQuery的方式，肯定会发生错误。</p>
+
+<p>$http.post的第二个参数data如果是一个对象，它将会以json的方式发给服务端。</p>
+
+<pre><code>$http.post(&#39;/path/to/api&#39;, {id:1, city:&#39;beijing&#39;})
+</code></pre>
+
+<p>GET 方式访问 <code>/path/to/api?id=1&amp;city=beijing</code>，要写成这样。</p>
+
+<pre><code>$http.get(&#39;/path/to/api&#39;, {
+    params: {id:1,city:&#39;beijing&#39;}
+})
+</code></pre>
+
+<p>POST 方式访问 <code>/path/to/api</code>，发送数据<code>id=1&amp;city=beijing</code>，
+POST方式以key=value&amp;这种字符串发送数据的形式，在angular中不被默认支持。
+需要指定headers和预先生成data字符串(比如使用<code>jQuery.param()</code>)才可以。</p>
+
+<pre><code>$http.post(&#39;/path/to/api&#39;, &#39;id=1&amp;city=beijing&#39;, {
+    headers: {&#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded&#39;}
+})
+</code></pre></li>
+<li><p>jQuery 插件改造</p>
+
+<p>jQuery插件的改造，建议使用<code>directive</code>来重写，或者用directive做成适配器来使用。</p></li>
+</ol>
+
+    </div>
+    <div class="g-plus" data-action="share" data-height="24"></div>
+    <div class="g-follow" data-annotation="bubble" data-height="24"
+      data-href="//plus.google.com/116305544434538996428" data-rel="author"></div>
+    <ul class="tag_box inline">
+      <li><i class="icon-folder-open"></i></li>
+      <li>
+        <a href="/categories#code/angularjs-ref">code/angularjs <span>1</span></a>
+      </li>
+    </ul>
+    <ul class="tag_box inline">
+      <li><i class="icon-tags"></i></li>
+      <li>
+        <a href="/tags#angularjs-ref">angularjs <span>1</span></a>
+      </li>
+      <li>
+        <a href="/tags#experience-ref">experience <span>1</span></a>
+      </li>
+      <li>
+        <a href="/tags#javascript-ref">javascript <span>1</span></a>
+      </li>
+    </ul>
+    <hr>
+    <div class="pagination">
+      <ul>
+          <li class="prev disabled"><a>&larr; Previous</a></li>
+
+          <li><a href="/archive">Archive</a></li>
+
+          <li class="next"><a href="/ci/jenkins/%E5%9C%A8jenkins%E4%B8%8A%E8%AE%BF%E9%97%AEgithub%E7%A7%81%E6%9C%89%E5%BA%93" title="在jenkins上访问github私有库">Next &rarr;</a></li>
+      </ul>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'xdjghio'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+</div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'zh-CN'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+</div>
+
+      </div>
+
+      <hr>
+      <div class="footer">
+        <p>&copy; <a href="/about">Dejian Xu</a> 2013
+          with help from <a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework">ruhoh</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+          Welcome to my
+          <a href="https://plus.google.com/116305544434538996428?rel=author">Google+</a>
+        </p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint linenums";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-41923332-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+  </body>
+</html>

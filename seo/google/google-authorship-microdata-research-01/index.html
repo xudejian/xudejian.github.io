@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>google authorship microdata research 01</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="小博创建两个月左右，开始给TA丰富Google 搜索外观，主要是添加作者信息，遵照官方指导，添加好各个信息，然后经过漫长观察，没有显示在谷歌搜索结果上，决定深入研究这个东西，这里先写一篇文章，来记录之前已经做的工作，并且会持续观察下去，直到我的博客出现在搜索结果中。">
+    <meta name="author" content="Dejian Xu">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+<link href='/assets/stylesheets/bootstrap.min-88238289010db19359d2181e634e95cd.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/style-e81fa375b231bedf6cb2dbc6653570cc.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/google_prettify/sons-of-obsidian-afb0925bfa2d994f17dab93e13fbf999.css' type='text/css' rel='stylesheet' media='all'>
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+    <link href='https://plus.google.com/116305544434538996428' rel='publisher'/>
+    <link rel="sitemap" href="/sitemap.xml" />
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">Dejian's Blog</a>
+          <ul class="nav">
+              
+                <li><a href="/archive">Archive</a></li>
+              
+              
+                <li><a href="/tags">Tags</a></li>
+              
+              
+                <li><a href="/categories">Categories</a></li>
+              
+              
+                <li><a href="/pages">Pages</a></li>
+              
+              
+                <li><a href="/about">About Me</a></li>
+              
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
+        <div itemscope itemtype="http://schema.org/BlogPosting">
+<div class="page-header">
+  <meta itemprop="url" content="/seo/google/google-authorship-microdata-research-01">
+  <meta itemprop="author" content="Dejian Xu">
+  <h1 itemprop="name">google authorship microdata research 01 </h1>
+</div>
+
+<div class="row-fluid post-full">
+  <div class="span12">
+    <div class="date">
+      Posted
+      <span content="2013-08-31" itemprop="datePublished">2013-08-31</span>
+      by Dejian Xu
+      <a href="https://plus.google.com/116305544434538996428?rel=author" target="_blank">G+</a>
+    </div>
+    <div class="content" itemprop="articleBody">
+      <h3 id="toc_0">前言</h3>
+
+<p>小博创建已经两个月左右了，想着给TA丰富Google 搜索外观，遵照官方指导，
+添加好各种信息，然后经过漫长观察，没有显示在谷歌搜索结果上，
+决定深入研究这个东西，这里先写一篇文章，来记录之前已经做的工作。</p>
+
+<h3 id="toc_1">Google 搜索外观是什么东西？</h3>
+
+<p>Google 搜索外观就是在谷歌搜索结果中，显示作者信息，展示丰富网页摘要，
+活动或者投票等一些信息，可以让搜索结果更加友好，更加吸引用户。</p>
+
+<p>详细可见谷歌文档说明，<a href="https://support.google.com/webmasters/answer/164506">搜索外观</a></p>
+
+<h3 id="toc_2">初试不利 作者信息添加后，搜索结果不显示</h3>
+
+<p>需要添加的代码和设定，在文档中都已列的很清楚了，而且是一步步列下来的，
+只要照着做就可以了。</p>
+
+<p>这些设定里面，以作者信息(authorship)，最为不易见效果，也是最想添加的设定。</p>
+
+<p>将作者信息和Google+账号一并设定好。然后在结构化数据测试工具里测试，
+肯定得在这里通过，不然就是你设定有问题。</p>
+
+<p>虽然经过设定，添加了必要的代码，但是很多天之后，仍然不见效果。
+一个简单的东西，怎么就是没有效果呢，我开始泡谷歌Groups，
+没有效果的真是非常多啊，论坛上都是问这个问题。</p>
+
+<h4 id="toc_3">寻找答案</h4>
+
+<ul>
+<li>谷歌要求有清晰可辨的五官</li>
+</ul>
+
+<p>我在论坛里得到的第一个建议，就是我的头像需要更换，我的头像是半边脸。
+但是在搜索结果中，我的谷歌Blogger能正常显示出作者头像。
+这个虽然有点奇怪，但是要求就是这样，而且半边脸不算清晰可辨的五官，也说得通，
+马上上传一个新头像。</p>
+
+<p>结果:  等了很多天，还是没有效果。</p>
+
+<ul>
+<li>手工更新谷歌索引和快照，对结构化代码的更新没什么帮助</li>
+</ul>
+
+<p>我发现在谷歌站长工具里面，搜索外观，结构化数据里面，没有我的文章，
+没有发现结构化代码。</p>
+
+<p>第一感觉是没有更新索引，然后手工提交页面，依然没有效果，这是为什么呢？</p>
+
+<p>经过长时间观察，发现手工提交页面，虽然能很快更新索引和快照，
+但是对作者信息(authorship)没有帮助，时间过了一个月，发现结构化数据出现了，
+但是搜索结果中依然没有作者信息。</p>
+
+<p>这里发现一个额外信息，关于谷歌索引和快照，基本是一个月一次更新，
+手动提交页面会在几分钟内更新，但是一周左右之后就还原了，
+所以手工提交的页面应该不是持久有效的，需要手工更新索引或者快照的地方，
+需要持续关注谷歌搜索结果。</p>
+
+<ul>
+<li>结构化数据的更新周期</li>
+</ul>
+
+<p>在谷歌站长工具的统计页面那里，可以看到，结构化数据大概是7天更新一次，
+不过我的记录里也有3天就更新的。</p>
+
+<ul>
+<li>文章太少</li>
+</ul>
+
+<p>到现在，搜索结果中依然没有我的作者信息展示，论坛里也有给我的回复，
+说是我的帖子太少，这个是事实。但是是不是因为这个，才没有显示在搜索结果中，
+这个就不得而知了，因为我的Blogger里只有1篇文章，不过Blogger是谷歌的产品，
+或许有优先啥的。</p>
+
+<p>这个只能边积累边观察了。</p>
+
+<ul>
+<li><a href="https://www.google.com/webmasters/tools/labs-author-stats-1">作者统计信息</a></li>
+</ul>
+
+<p>我的博客页面依然没有出现在这里，我想哪一天TA出现在这里的时候，
+谷歌搜索结果应该就会显示我的作者信息了。</p>
+
+<h3 id="toc_4">后续观察</h3>
+
+<p>我会持续记录对作者信息的观察和尝试，如果读者有什么建议，欢迎留下你的评论。</p>
+
+<h4 id="toc_5">相关文章</h4>
+
+<p><a href="/seo/google/google-authorship-microdata-research-02">google authorship microdata research 02</a></p>
+
+    </div>
+    <div class="g-plus" data-action="share" data-height="24"></div>
+    <div class="g-follow" data-annotation="bubble" data-height="24"
+      data-href="//plus.google.com/116305544434538996428" data-rel="author"></div>
+    <ul class="tag_box inline">
+      <li><i class="icon-folder-open"></i></li>
+      <li>
+        <a href="/categories#SEO/google-ref">SEO/google <span>3</span></a>
+      </li>
+    </ul>
+    <ul class="tag_box inline">
+      <li><i class="icon-tags"></i></li>
+      <li>
+        <a href="/tags#SEO-ref">SEO <span>3</span></a>
+      </li>
+      <li>
+        <a href="/tags#google-ref">google <span>3</span></a>
+      </li>
+      <li>
+        <a href="/tags#authorship-ref">authorship <span>3</span></a>
+      </li>
+      <li>
+        <a href="/tags#microdata-ref">microdata <span>3</span></a>
+      </li>
+    </ul>
+    <hr>
+    <div class="pagination">
+      <ul>
+          <li class="prev"><a href="/code/ruhoh/ruhoh-sitemap-feature" title="ruhoh sitemap feature">&larr; Previous</a></li>
+
+          <li><a href="/archive">Archive</a></li>
+
+          <li class="next"><a href="/seo/google/google-authorship-microdata-research-02" title="google authorship microdata research 02">Next &rarr;</a></li>
+      </ul>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'xdjghio'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+</div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'zh-CN'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+</div>
+
+      </div>
+
+      <hr>
+      <div class="footer">
+        <p>&copy; <a href="/about">Dejian Xu</a> 2013
+          with help from <a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework">ruhoh</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+          Welcome to my
+          <a href="https://plus.google.com/116305544434538996428?rel=author">Google+</a>
+        </p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint linenums";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-41923332-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>在jenkins上访问github私有库</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="在jenkins上访问github私有库">
+    <meta name="author" content="Dejian Xu">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+<link href='/assets/stylesheets/bootstrap.min-88238289010db19359d2181e634e95cd.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/style-e81fa375b231bedf6cb2dbc6653570cc.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/google_prettify/sons-of-obsidian-afb0925bfa2d994f17dab93e13fbf999.css' type='text/css' rel='stylesheet' media='all'>
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+    <link href='https://plus.google.com/116305544434538996428' rel='publisher'/>
+    <link rel="sitemap" href="/sitemap.xml" />
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">Dejian's Blog</a>
+          <ul class="nav">
+              
+                <li><a href="/archive">Archive</a></li>
+              
+              
+                <li><a href="/tags">Tags</a></li>
+              
+              
+                <li><a href="/categories">Categories</a></li>
+              
+              
+                <li><a href="/pages">Pages</a></li>
+              
+              
+                <li><a href="/about">About Me</a></li>
+              
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
+        <div itemscope itemtype="http://schema.org/BlogPosting">
+<div class="page-header">
+  <meta itemprop="url" content="/ci/jenkins/%E5%9C%A8jenkins%E4%B8%8A%E8%AE%BF%E9%97%AEgithub%E7%A7%81%E6%9C%89%E5%BA%93">
+  <meta itemprop="author" content="Dejian Xu">
+  <h1 itemprop="name">在jenkins上访问github私有库 </h1>
+</div>
+
+<div class="row-fluid post-full">
+  <div class="span12">
+    <div class="date">
+      Posted
+      <span content="2013-07-28" itemprop="datePublished">2013-07-28</span>
+      by Dejian Xu
+      <a href="https://plus.google.com/116305544434538996428?rel=author" target="_blank">G+</a>
+    </div>
+    <div class="content" itemprop="articleBody">
+      <h4 id="toc_0">必装插件</h4>
+
+<p><a href="https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin">GitHub Plugin</a></p>
+
+<h4 id="toc_1">设置 GitHub Web Hook</h4>
+
+<p>在jenkins的系统设置里，找到Github Web Hook这一章，推荐你使用自动模式。
+填上你的GitHub Credentials信息，username和OAuth token，没有OAuth token，
+来这里找<a href="https://github.com/settings/applications">https://github.com/settings/applications</a></p>
+
+<p>在需要访问github私有库的地方，都需要将响应的ssh公钥提交给你的库设置，或者depoly
+key，或者oauth token，总之要能正常访问。</p>
+
+<p>在jenkins任务中，你可以选上<code>Build when a change is pushed to GitHub</code>，
+每有代码提交到github时，就会自动触发你的jenkins任务。
+为保稳妥，你可以勾上<code>Poll SCM</code>，定一个周期任务，定期检查github更新，
+以免漏了什么更新。</p>
+
+<h4 id="toc_2">参考资料</h4>
+
+<p><a href="https://wiki.jenkins-ci.org/display/JENKINS/Github+Plugin">GitHub Plugin</a>
+<a href="https://github.com/blog/1509-personal-api-tokens">Personal API tokens</a></p>
+
+    </div>
+    <div class="g-plus" data-action="share" data-height="24"></div>
+    <div class="g-follow" data-annotation="bubble" data-height="24"
+      data-href="//plus.google.com/116305544434538996428" data-rel="author"></div>
+    <ul class="tag_box inline">
+      <li><i class="icon-folder-open"></i></li>
+      <li>
+        <a href="/categories#CI/jenkins-ref">CI/jenkins <span>2</span></a>
+      </li>
+    </ul>
+    <ul class="tag_box inline">
+      <li><i class="icon-tags"></i></li>
+      <li>
+        <a href="/tags#持续集成-ref">持续集成 <span>3</span></a>
+      </li>
+      <li>
+        <a href="/tags#CI-ref">CI <span>4</span></a>
+      </li>
+      <li>
+        <a href="/tags#jenkins-ref">jenkins <span>2</span></a>
+      </li>
+      <li>
+        <a href="/tags#github-ref">github <span>2</span></a>
+      </li>
+    </ul>
+    <hr>
+    <div class="pagination">
+      <ul>
+          <li class="prev"><a href="/code/angularjs/angularjs-first-experience" title="angularjs first experience">&larr; Previous</a></li>
+
+          <li><a href="/archive">Archive</a></li>
+
+          <li class="next"><a href="/ci/travis/%E4%BD%BF%E7%94%A8travis%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90github-blog-pages" title="使用travis持续集成github blog pages">Next &rarr;</a></li>
+      </ul>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'xdjghio'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+</div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'zh-CN'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+</div>
+
+      </div>
+
+      <hr>
+      <div class="footer">
+        <p>&copy; <a href="/about">Dejian Xu</a> 2013
+          with help from <a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework">ruhoh</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+          Welcome to my
+          <a href="https://plus.google.com/116305544434538996428?rel=author">Google+</a>
+        </p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint linenums";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-41923332-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+  </body>
+</html>

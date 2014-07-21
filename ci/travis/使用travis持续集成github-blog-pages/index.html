@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>使用travis持续集成github blog pages</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="使用travis持续集成github blog pages">
+    <meta name="author" content="Dejian Xu">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+<link href='/assets/stylesheets/bootstrap.min-88238289010db19359d2181e634e95cd.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/style-e81fa375b231bedf6cb2dbc6653570cc.css' type='text/css' rel='stylesheet' media='all'>
+<link href='/assets/stylesheets/google_prettify/sons-of-obsidian-afb0925bfa2d994f17dab93e13fbf999.css' type='text/css' rel='stylesheet' media='all'>
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+    <link href='https://plus.google.com/116305544434538996428' rel='publisher'/>
+    <link rel="sitemap" href="/sitemap.xml" />
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <a class="brand" href="/">Dejian's Blog</a>
+          <ul class="nav">
+              
+                <li><a href="/archive">Archive</a></li>
+              
+              
+                <li><a href="/tags">Tags</a></li>
+              
+              
+                <li><a href="/categories">Categories</a></li>
+              
+              
+                <li><a href="/pages">Pages</a></li>
+              
+              
+                <li><a href="/about">About Me</a></li>
+              
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
+        <div itemscope itemtype="http://schema.org/BlogPosting">
+<div class="page-header">
+  <meta itemprop="url" content="/ci/travis/%E4%BD%BF%E7%94%A8travis%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90github-blog-pages">
+  <meta itemprop="author" content="Dejian Xu">
+  <h1 itemprop="name">使用travis持续集成github blog pages </h1>
+</div>
+
+<div class="row-fluid post-full">
+  <div class="span12">
+    <div class="date">
+      Posted
+      <span content="2013-07-28" itemprop="datePublished">2013-07-28</span>
+      by Dejian Xu
+      <a href="https://plus.google.com/116305544434538996428?rel=author" target="_blank">G+</a>
+    </div>
+    <div class="content" itemprop="articleBody">
+      <h2 id="toc_0">想要一个GitHub Blog吗？</h2>
+
+<p>你可以将博客发布在github的主机上。</p>
+
+<p>还没有github的blog页面吗？Github有详细的文档，请看这里
+<a href="https://help.github.com/articles/what-are-github-pages">https://help.github.com/articles/what-are-github-pages</a>
+，和jekyll的<a href="http://jekyllbootstrap.com/">Step By Step</a></p>
+
+<p>jekyll的作者推荐你尝试一下<a href="http://ruhoh.com/">ruhoh</a>，
+您看到的这个blog就是用ruhoh生成的。</p>
+
+<p>github的默认支持jekyll，对ruhoh不支持，但是TA支持纯静态页面，
+所以可以使用任意的框架，生成blog的静态页面，然后部署到github上。</p>
+
+<p>如果你使用jekyll的话，每次文件到github库，github会为您自动部署，
+不需要您自己设置什么。</p>
+
+<h2 id="toc_1">使用ruhoh来发布你的blog</h2>
+
+<p>使用ruhoh来生成你的blog非常简单，如果你还没看过ruhoh的说明，
+请先移步<a href="http://ruhoh.com/">ruhoh</a>。</p>
+
+<p>当手工编译blog后，将compiled文件夹下的文件，
+发布到<code>YOUR-GITHUB-USERNAME.github.io</code>这个库，然后你的blog就建立好了。</p>
+
+<h2 id="toc_2">持续集成 自动化部署</h2>
+
+<p>想象一下，每次我要发博文时，都有写好博文，然后编译，再push到github上。
+每次都要这样来一次，写几次博客后，就再没兴致了。</p>
+
+<p>使用过持续集成工具吗？脑补一下，你旁边跟着一位仆人，每次你把写好的博文递给他，
+“请帮我发布这篇稿子!”，美死了。</p>
+
+<h2 id="toc_3">使用Travis持续集成来自动部署</h2>
+
+<p>在github上使用travis来做持续集成，非常便利，只要在你的项目根目录里加上<code>.travis.yml</code>，
+然后在travis网站打开你相应的库，就算完成了。</p>
+
+<h3 id="toc_4">如何配置travis</h3>
+
+<p>在配置travis时，我遇到不少问题，这里先罗列一些我参考过的页面。</p>
+
+<p><a href="http://www.harimenon.com/blog/2013/01/27/auto-deploying-to-my-octopress-blog/">Auto-deploying to My Octopress Blog With Travis-CI</a></p>
+
+<p><a href="http://about.travis-ci.org/docs/user/build-configuration/">travis docs build configuration</a></p>
+
+<p><a href="https://github.com/travis-ci/travis-deploy">travis-deploy</a></p>
+
+<p><a href="http://www.neilmiddleton.com/deploying-to-heroku-from-travis-ci/">deploying to heroku from travis-ci</a></p>
+
+<p><a href="http://about.travis-ci.org/blog/2013-07-09-introducing-continuous-deployment-to-heroku/">introducing continuous deployment to heroku</a></p>
+
+<p><a href="https://gist.github.com/floydpink/4631240">生成与在travis中使用密钥文件的方法</a></p>
+
+<p>您从这些页面中肯定能找到正确的配置方法。</p>
+
+<h3 id="toc_5">可能遇到的问题</h3>
+
+<ol>
+<li><p>Mac 环境下，需要使用GNU版的coreutils工具包</p>
+
+<p>在生成加密的travis环境变量时，会需要base64
+split等命令，gnu版工具跟mac自带的工具，在参数上有差异，
+如果您的电脑上跑不通，请尝试gnu版coreutils。</p></li>
+<li><p>travis encrypt</p>
+
+<p>生成加密环境变量时，需要处在您的项目文件夹下，
+跟您的<code>.travis.yml</code>处在同一目录，或者使用<code>-r</code>指定github库地址。</p></li>
+<li><p>bundle install</p>
+
+<p>最近travis有更新，安装ruby相关gem时，会使用<code>bundle install --deployment</code>，
+这样会把依赖包安装到项目文件夹下<code>./vendor/bundle</code>，这样ruhoh在编译的时候，
+会把这个文件夹下的文件当博文来编译，最终编译失败。
+只需要增加一项配置即可解决，<code>bundler_args: &#39;&#39;</code></p></li>
+</ol>
+
+<h3 id="toc_6">我的配置文件</h3>
+
+<p>这里是我的travis配置文件，
+<a href="https://github.com/xudejian/xudejian.ruhoh.com/blob/master/.travis.yml"><code>.travis.yml</code></a>，
+欢迎参考。</p>
+
+<h3 id="toc_7">其他问题</h3>
+
+<p>请在评论处留言。</p>
+
+    </div>
+    <div class="g-plus" data-action="share" data-height="24"></div>
+    <div class="g-follow" data-annotation="bubble" data-height="24"
+      data-href="//plus.google.com/116305544434538996428" data-rel="author"></div>
+    <ul class="tag_box inline">
+      <li><i class="icon-folder-open"></i></li>
+      <li>
+        <a href="/categories#CI/travis-ref">CI/travis <span>1</span></a>
+      </li>
+    </ul>
+    <ul class="tag_box inline">
+      <li><i class="icon-tags"></i></li>
+      <li>
+        <a href="/tags#持续集成-ref">持续集成 <span>3</span></a>
+      </li>
+      <li>
+        <a href="/tags#CI-ref">CI <span>4</span></a>
+      </li>
+      <li>
+        <a href="/tags#travis-ref">travis <span>1</span></a>
+      </li>
+      <li>
+        <a href="/tags#github-ref">github <span>2</span></a>
+      </li>
+    </ul>
+    <hr>
+    <div class="pagination">
+      <ul>
+          <li class="prev"><a href="/ci/jenkins/%E5%9C%A8jenkins%E4%B8%8A%E8%AE%BF%E9%97%AEgithub%E7%A7%81%E6%9C%89%E5%BA%93" title="在jenkins上访问github私有库">&larr; Previous</a></li>
+
+          <li><a href="/archive">Archive</a></li>
+
+          <li class="next"><a href="/ci/jenkins/%E9%80%8F%E8%BF%87jenkins%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1%E5%99%A8" title="透过jenkins部署服务器">Next &rarr;</a></li>
+      </ul>
+    </div>
+    <hr>
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'xdjghio'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+</div>
+<script type="text/javascript">
+  window.___gcfg = {lang: 'zh-CN'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+</div>
+
+      </div>
+
+      <hr>
+      <div class="footer">
+        <p>&copy; <a href="/about">Dejian Xu</a> 2013
+          with help from <a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework">ruhoh</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+          Welcome to my
+          <a href="https://plus.google.com/116305544434538996428?rel=author">Google+</a>
+        </p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Google Prettify -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint linenums";
+  }
+  prettyPrint();
+</script>
+<!-- end Google Prettify -->
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-41923332-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+  </body>
+</html>
